@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "allowImportingTsExtensions": false,
+    "verbatimModuleSyntax": false,
+    "noEmit": false,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "lib": ["ES2023", "DOM"],
+    "types": ["node", "jest", "@testing-library/jest-dom"]
+  },
+  "include": ["src"]
+}
