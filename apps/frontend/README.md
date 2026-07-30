@@ -1,32 +1,71 @@
-# React + TypeScript + Vite
+# apps/frontend — React File Upload SPA
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A minimal React 18 single-page application that lets users upload a file to the
+FastAPI backend.  Served from an **Azure Static Web App**.
 
-Currently, two official plugins are available:
+## Tech stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+| Tool | Purpose |
+|------|---------|
+| [React 18](https://react.dev/) | UI framework |
+| [TypeScript](https://www.typescriptlang.org/) (strict) | Type safety |
+| [Vite](https://vitejs.dev/) | Dev server & bundler |
+| [Jest](https://jestjs.io/) + [React Testing Library](https://testing-library.com/) | Unit tests |
+| [ESLint](https://eslint.org/) + [@typescript-eslint](https://typescript-eslint.io/) | Linting |
 
-## React Compiler
+## Quick start
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+cd apps/frontend
+npm install
+npm run dev       # http://localhost:5173  (hot-module reload)
+npm test          # Jest unit tests (single run)
+npm run lint      # ESLint
+npm run build     # Production bundle → dist/
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Environment variables
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `VITE_API_BASE_URL` | `""` (same origin) | Base URL of the FastAPI backend |
+
+Create a `.env.local` file (git-ignored) for local development:
+
+```env
+VITE_API_BASE_URL=http://localhost:8000
+```
+
+In the Azure Static Web App configuration set `VITE_API_BASE_URL` to your App
+Service URL, or configure a
+[proxy route](https://learn.microsoft.com/en-us/azure/static-web-apps/configuration#routing)
+in `staticwebapp.config.json` to forward `/upload` to the backend.
+
+## Project structure
+
+```
+src/
+├── api/
+│   └── upload.ts          # uploadFile() helper — POST /upload
+├── components/
+│   └── FileUpload.tsx      # File picker + upload form
+├── __tests__/
+│   ├── FileUpload.test.tsx # Component tests (React Testing Library)
+│   └── upload.test.ts      # API helper unit tests
+├── App.tsx
+└── main.tsx
+```
+
+## Testing
+
+```bash
+npm test                      # watch mode
+npm test -- --watchAll=false  # single run (CI)
+```
+
+## Linting
+
+```bash
+npm run lint          # report issues
+npm run lint -- --fix # auto-fix where possible
+```

@@ -1,0 +1,11 @@
+{
+  "version": "1",
+  "name": "production",
+  "variables": [
+    {
+      "name": "baseUrl",
+      "value": "{{BACKEND_URL}}",
+      "enabled": true
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+# Copy this file to terraform.tfvars (git-ignored) and fill in your values.
+# Never commit terraform.tfvars – it may contain sensitive data.
+
+project     = "myplayground"
+environment = "dev"
+location    = "eastus"
+
+# Comma-separated list of allowed CORS origins for the API.
+# Set to your Static Web App URL in production.
+allowed_origins = "*"
+
+# Maximum upload size in bytes (default: 10 MB).
+# max_upload_size_bytes = 10485760
