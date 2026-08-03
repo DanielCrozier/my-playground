@@ -4,7 +4,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 3.110"
+      version = ">= 5.0.1"
     }
     random = {
       source  = "hashicorp/random"
@@ -28,6 +28,8 @@ provider "azurerm" {
       recover_soft_deleted_key_vaults = true
     }
   }
+  # Defaulting project to 'Test Subscription'
+  subscription_id = "3f40ad49-3277-48ef-a0b2-c305bb75f575"
 }
 
 locals {

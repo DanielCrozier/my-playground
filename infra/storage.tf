@@ -19,7 +19,7 @@ resource "azurerm_storage_account" "uploads" {
 }
 
 resource "azurerm_storage_container" "uploads" {
-  name                   = "uploads"
-  storage_account_id     = azurerm_storage_account.uploads.id
+  name                  = "uploads"
+  storage_account_id    = azurerm_storage_account.uploads.id
   container_access_type = "private"
 }

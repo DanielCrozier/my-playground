@@ -72,8 +72,10 @@ the `azurerm` backend block in `main.tf` and follow the
 The storage connection string is written to Key Vault by Terraform and
 referenced by the App Service via a
 [Key Vault reference](https://learn.microsoft.com/en-us/azure/app-service/app-service-key-vault-references)
-in Application Settings.  It is **never** stored in plain text in App Service
-configuration or in Terraform state outputs.
+in Application Settings. Key Vault uses RBAC authorization, so Terraform grants
+the backend managed identity the `Key Vault Secrets User` role and grants the
+deployer the `Key Vault Secrets Officer` role. The secret is **never** stored
+in plain text in App Service configuration or in Terraform state outputs.
 
 > **Important:** `terraform.tfvars` is git-ignored.  Never commit it.
 
