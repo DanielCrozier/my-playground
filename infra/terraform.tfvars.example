@@ -3,11 +3,14 @@
 
 project     = "myplayground"
 environment = "dev"
-location    = "eastus"
+location    = "eastus2"
 
 # Comma-separated list of allowed CORS origins for the API.
 # Set to your Static Web App URL in production.
 allowed_origins = "*"
+
+# App Service plan tier for backend.
+backend_service_plan_sku = "F1"
 
 # Maximum upload size in bytes (default: 10 MB).
 # max_upload_size_bytes = 10485760

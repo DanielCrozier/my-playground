@@ -3,7 +3,7 @@ resource "azurerm_service_plan" "backend" {
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   os_type             = "Linux"
-  sku_name            = "B1"
+  sku_name            = upper(var.backend_service_plan_sku)
 
   tags = local.common_tags
 }
@@ -24,7 +24,8 @@ resource "azurerm_linux_web_app" "backend" {
     application_stack {
       python_version = "3.12"
     }
-    always_on = true
+    # Free tier does not support Always On.
+    always_on = lower(var.backend_service_plan_sku) != "f1"
   }
 
   app_settings = {
