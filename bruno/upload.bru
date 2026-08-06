@@ -1,0 +1,27 @@
+meta {
+  name: Upload File
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/upload
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  file: @file()
+}
+
+tests {
+  test("status is 201", function() {
+    expect(res.status).to.equal(201);
+  });
+
+  test("response contains blob_name", function() {
+    expect(res.body).to.have.property("blob_name");
+    expect(res.body.blob_name).to.be.a("string");
+    expect(res.body.blob_name.length).to.be.greaterThan(0);
+  });
+}
